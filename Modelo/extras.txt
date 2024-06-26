@@ -1,0 +1,266 @@
+Modelo2.py:
+def format_image(image, label): # definimos el formato de le imagen
+    image = tf.image.resize(image, (224, 224)) / 255.0
+    return  image, label
+
+train_data_dir = 'archive/train'
+test_data_dir = 'archive/test'
+BATCH_SIZE = 32
+# Definir la función para cargar los datos
+def load_data(data_dir):
+    data_generator = tf.keras.preprocessing.image.ImageDataGenerator(rescale=1./255)
+    data = data_generator.flow_from_directory(
+        data_dir,
+        target_size=(224,224),  
+        batch_size=BATCH_SIZE,
+        class_mode='categorical'  # Si estás trabajando con clasificación, ajusta esto según sea necesario
+    )
+    return data
+
+# Cargar los datos de entrenamiento y prueba
+raw_train = load_data(train_data_dir)
+raw_test = load_data(test_data_dir)
+print(raw_train.class_indices)
+num_examples = sum([len(files) for _, _, files in os.walk(train_data_dir)])
+
+# Contar la cantidad de clases (suponiendo que cada subcarpeta representa una clase)
+num_classes = len([name for name in os.listdir(train_data_dir)])
+
+print("Número de ejemplos de entrenamiento:", num_examples)
+print("Número de clases:", num_classes)
+
+train_batches = raw_train.shuffle(num_examples // 4).map(format_image).batch(BATCH_SIZE).prefetch(1)
+test_batches = raw_test.map(format_image).batch(1)
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+Conv.py:
+
+import os
+import zipfile
+import sys
+import tensorflow as tf
+import matplotlib.pyplot as plt
+from tensorflow.keras.optimizers import RMSprop
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+import tensorflow_hub as hub
+import pathlib
+import numpy as np
+
+train_dir = 'archive/train'
+validation_dir = 'archive/test'
+
+# Use ImageDataGenerator to load images from the directories
+train_datagen = ImageDataGenerator(rescale=1/255)
+validation_datagen = ImageDataGenerator(rescale=1/255)
+
+#tf.keras.optimizers.Adam
+#tf.keras.optimizers.RMSprop
+
+
+train_generator = train_datagen.flow_from_directory(
+    'archive/train',  # Update this path to point to your training data
+    target_size=(100, 100),
+    class_mode='categorical'  # Use 'categorical' for multi-class classification
+)
+
+validation_generator = validation_datagen.flow_from_directory(
+    'archive/test',  # Update this path to point to your validation data
+    target_size=(100, 100),
+    class_mode='categorical'  # Use 'categorical' for multi-class classification
+)
+
+
+# Load the model without the optimizer
+model = tf.keras.models.load_model('ball_classification_model.keras', compile=False)
+
+# # Compile the model with your own optimizer
+# model.compile(optimizer='rmsprop', loss='categorical_crossentropy', metrics=['accuracy'])
+
+# # Convert the model to TFLite
+# converter = tf.lite.TFLiteConverter.from_keras_model(model)
+# tflite_model = converter.convert()
+
+# # Save the TFLite model to a file
+# with open('model.tflite', 'wb') as f:
+#     f.write(tflite_model)
+
+# tflite_model_file = pathlib.Path("/tmp/model_rep.tflite")
+# tflite_model_file.write_bytes(tflite_model)
+
+target_names = ['american_football', 'baseball', 'basketball', 'billiard_ball', 'bowling_ball', 'cricket_ball', 
+               'football', 'golf_ball', 'hockey_ball', 'hockey_puck', 'rugby_ball', 'shuttlecock',
+                'table_tennis_ball', 'tennis_ball', 'volleyball']
+
+def plot_image(i, predictions_array, true_label, img):
+    predictions_array, true_label, img = predictions_array[i], true_label[i], img[i]
+    plt.grid(False)
+    plt.xticks([])
+    plt.yticks([])
+
+    img = np.squeeze(img)
+
+    plt.imshow(img, cmap=plt.cm.binary)
+
+    predicted_label = np.argmax(predictions_array)
+
+    if predicted_label == true_label:
+        color = 'green'
+    else:
+        color = 'red'
+
+    plt.xlabel("{} {:2.0f}% ({})".format(target_names[predicted_label],
+                                         100*np.max(predictions_array),
+                                         target_names[true_label]), color=color)
+    
+max_index = 100 #@param {type:"slider", min:1, max:100, step:1}
+for index in range(0,max_index):
+  plt.figure(figsize=(6,3))
+  plt.subplot(1,2,1)
+  plot_image(index, predictions, test_labels, test_imgs)
+  plt.show()
+
+# Guardar modelo en carpeta
+export_dir = "saved_model/model1"
+model.export(export_dir)
+
+""" SE HACE POST-TRAINING QUANTIZATION """
+
+# Convertir a tflite
+converter = tf.lite.TFLiteConverter.from_saved_model(export_dir) # Busca en el directorio el modelo que se va a convertir a tflite
+converter.optimizations = [tf.lite.Optimize.DEFAULT] # Cuantizar
+
+def representative_data_gen(): # Cuantizar con data representativa
+    for i in range(100):
+        # Obtener un lote de datos
+        input_value, _ = next(validation_generator)
+        yield [input_value]
+
+
+converter.representative_dataset = representative_data_gen
+converter.target_spec.supported_ops = [tf.lite.OpsSet.TFLITE_BUILTINS_INT8]
+
+tflite_model = converter.convert() # Finalmente se convierte
+tflite_model_file = pathlib.Path("saved_model/model_original.tflite") # Donde se guarda
+tflite_model_file.write_bytes(tflite_model) # Ns q wea
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+rf.py:
+
+# Guardar modelo en carpeta
+
+# NUM_EPOCHS = 80
+# history = model.fit(
+#       train_generator,
+#       steps_per_epoch=30, # cuántos batches del conjunto de entrenamiento se utilizan para entrenar el modelo durante una epoch. ceil(num_samples / batch_size)
+#       epochs=NUM_EPOCHS,
+#       verbose=1,
+#       validation_data=validation_generator)
+
+# Buena practica y buen grafico para usar en su presentacion
+# plt.plot(history.history['accuracy'])
+# plt.plot(history.history['val_accuracy'])
+# plt.title('model accuracy')
+# plt.ylabel('accuracy')
+# plt.xlabel('epoch')
+# plt.legend(['train', 'test'], loc='upper left')
+# plt.xlim([0,NUM_EPOCHS])
+# plt.ylim([0.0,1.0]) 
+# plt.show()
+
+
+# model.save("ball_classification_model.h5")
+# model.save_weights("ball_classification_model_weights.weights.h5")
+
+export_dir = "saved_model/model1"
+model.export(export_dir)
+
+""" SE HACE POST-TRAINING QUANTIZATION """
+
+# Convertir a tflite
+converter = tf.lite.TFLiteConverter.from_saved_model(export_dir) # Busca en el directorio el modelo que se va a convertir a tflite
+converter.optimizations = [tf.lite.Optimize.DEFAULT] # Cuantizar
+
+def representative_data_gen(): # Cuantizar con data representativa
+    for i in range(100):
+        # Obtener un lote de datos
+        input_value, _ = next(validation_generator)
+        yield [input_value]
+
+
+converter.representative_dataset = representative_data_gen
+converter.target_spec.supported_ops = [tf.lite.OpsSet.TFLITE_BUILTINS_INT8]
+
+tflite_model = converter.convert() # Finalmente se convierte
+tflite_model_file = pathlib.Path("saved_model/model_original.tflite") # Donde se guarda
+tflite_model_file.write_bytes(tflite_model) # Se escribe el archivo
+
+tflite_model_file = 'saved_model/model_original.tflite'
+interpreter = tf.lite.Interpreter(model_path=tflite_model_file)
+interpreter.allocate_tensors()
+
+input_index = interpreter.get_input_details()[0]["index"]
+output_index = interpreter.get_output_details()[0]["index"]
+
+predictions = []
+
+test_labels, test_imgs = [], []
+num_steps = 1000
+for i, (imgs, labels) in enumerate(validation_generator):
+    if i >= num_steps:
+        break
+    for j in range(len(imgs)):
+        img = imgs[j]
+        label = labels[j]
+        interpreter.set_tensor(input_index, [img])  # Note the [img] to add an extra dimension
+        interpreter.invoke()
+        predictions.append(interpreter.get_tensor(output_index))
+
+        test_labels.append(label)
+        test_imgs.append(img)
+score = 0
+for item in range(0,1000):
+  prediction=np.argmax(predictions[item])
+  label = test_labels[item]
+  label = label.tolist().index(1)+1
+  if prediction==label:
+    score=score+1
+
+print("De 1000 predicciones obtenemos " + str(score) + " correctas")
+
+target_names = ['american_football', 'baseball', 'basketball', 'billiard_ball', 'bowling_ball', 'cricket_ball', 
+               'football', 'golf_ball', 'hockey_ball', 'hockey_puck', 'rugby_ball', 'shuttlecock',
+                'table_tennis_ball', 'tennis_ball', 'volleyball']
+
+def plot_image(i, predictions_array, true_label, img):
+    predictions_array, true_label, img = predictions_array[i], true_label[i], img[i]
+    plt.grid(False)
+    plt.xticks([])
+    plt.yticks([])
+
+    img = np.squeeze(img)
+
+    plt.imshow(img, cmap=plt.cm.binary)
+
+    predicted_label = np.argmax(predictions_array)
+    predicted_label = predicted_label.tolist().index(1)+1
+
+    if predicted_label == true_label:
+        color = 'green'
+    else:
+        color = 'red'
+
+    plt.xlabel("{} {:2.0f}% ({})".format(target_names[predicted_label],
+                                         100*np.max(predictions_array),
+                                         target_names[true_label]), color=color)
+    
+max_index = 100 #@param {type:"slider", min:1, max:100, step:1}
+for index in range(0,max_index):
+  plt.figure(figsize=(6,3))
+  plt.subplot(1,2,1)
+  plot_image(index, predictions, test_labels, test_imgs)
+  plt.show()
+
+
+

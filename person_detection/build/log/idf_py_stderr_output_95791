@@ -1,0 +1,8 @@
+CMake Error at /Users/joseto/esp/esp-idf/tools/cmake/project.cmake:465 (message):
+  Directory specified in EXTRA_COMPONENT_DIRS doesn't exist:
+  /Users/joseto/esp/projects_tf/person_detection/components/ESP32Servo
+Call Stack (most recent call first):
+  /Users/joseto/esp/esp-idf/tools/cmake/project.cmake:549 (__project_init)
+  CMakeLists.txt:29 (project)
+
+

@@ -1,0 +1,27 @@
+[0;33m--- esp-idf-monitor 1.4.0 on /dev/cu.usbserial-1140 115200 ---[0m
+[0;33m--- Quit: Ctrl+] | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H ---[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x400f093f: task_wdt_timeout_handling at /Users/joseto/esp/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+ (inlined by) task_wdt_isr at /Users/joseto/esp/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+0x400844f5: _xt_lowint1 at /Users/joseto/esp/esp-idf/components/xtensa/xtensa_vectors.S:1240
+0x400e4096: esp_nn_conv_s8_opt at /Users/joseto/esp/projects_tf/person_detection/managed_components/espressif__esp-nn/src/convolution/esp_nn_conv_opt.c:159
+0x400dd4f6: tflite::(anonymous namespace)::Eval(TfLiteContext*, TfLiteNode*) at /Users/joseto/esp/projects_tf/person_detection/managed_components/espressif__esp-tflite-micro/tensorflow/lite/micro/kernels/esp_nn/conv.cc:250
+ (inlined by) Eval at /Users/joseto/esp/projects_tf/person_detection/managed_components/espressif__esp-tflite-micro/tensorflow/lite/micro/kernels/esp_nn/conv.cc:365
+0x400d9af1: tflite::MicroInterpreterGraph::InvokeSubgraph(int) at /Users/joseto/esp/projects_tf/person_detection/managed_components/espressif__esp-tflite-micro/tensorflow/lite/micro/micro_interpreter_graph.cc:194
+0x400d97c6: tflite::MicroInterpreter::Invoke() at /Users/joseto/esp/projects_tf/person_detection/managed_components/espressif__esp-tflite-micro/tensorflow/lite/micro/micro_interpreter.cc:294
+0x400d869e: loop at /Users/joseto/esp/projects_tf/person_detection/main/main_functions.cc:190
+0x400d8031: tf_main() at /Users/joseto/esp/projects_tf/person_detection/main/main.cc:39
+[0m
+[0;33m0x400f093f: task_wdt_timeout_handling at /Users/joseto/esp/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+ (inlined by) task_wdt_isr at /Users/joseto/esp/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+0x400844f5: _xt_lowint1 at /Users/joseto/esp/esp-idf/components/xtensa/xtensa_vectors.S:1240
+0x400e4083: esp_nn_conv_s8_opt at /Users/joseto/esp/projects_tf/person_detection/managed_components/espressif__esp-nn/src/convolution/esp_nn_conv_opt.c:158
+0x400dd4f6: tflite::(anonymous namespace)::Eval(TfLiteContext*, TfLiteNode*) at /Users/joseto/esp/projects_tf/person_detection/managed_components/espressif__esp-tflite-micro/tensorflow/lite/micro/kernels/esp_nn/conv.cc:250
+ (inlined by) Eval at /Users/joseto/esp/projects_tf/person_detection/managed_components/espressif__esp-tflite-micro/tensorflow/lite/micro/kernels/esp_nn/conv.cc:365
+0x400d9af1: tflite::MicroInterpreterGraph::InvokeSubgraph(int) at /Users/joseto/esp/projects_tf/person_detection/managed_components/espressif__esp-tflite-micro/tensorflow/lite/micro/micro_interpreter_graph.cc:194
+0x400d97c6: tflite::MicroInterpreter::Invoke() at /Users/joseto/esp/projects_tf/person_detection/managed_components/espressif__esp-tflite-micro/tensorflow/lite/micro/micro_interpreter.cc:294
+0x400d869e: loop at /Users/joseto/esp/projects_tf/person_detection/main/main_functions.cc:190
+0x400d8031: tf_main() at /Users/joseto/esp/projects_tf/person_detection/main/main.cc:39
+[0m
+[0m

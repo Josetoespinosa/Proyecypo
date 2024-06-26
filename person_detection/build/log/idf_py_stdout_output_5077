@@ -1,0 +1,4 @@
+[0/1] Re-running CMake...
+-- Configuring incomplete, errors occurred!
+FAILED: build.ninja 
+/opt/homebrew/Cellar/cmake/3.29.0/bin/cmake --regenerate-during-build -S/Users/joseto/esp/projects_tf/person_detection -B/Users/joseto/esp/projects_tf/person_detection/build

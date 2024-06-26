@@ -1,0 +1,100 @@
+[1/5] cd /Users/joseto/esp/projects_tf/person_detection/build/esp-idf/esptool_py && /Users/joseto/esp/idf-tools/python_env/idf5.3_py3.9_env/bin/python /Users/joseto/esp/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 partition --type app /Users/joseto/esp/projects_tf/person_detection/build/partition_table/partition-table.bin /Users/joseto/esp/projects_tf/person_detection/build/person_detection.bin
+person_detection.bin binary size 0x1400a0 bytes. Smallest app partition is 0x300000 bytes. 0x1bff60 bytes (58%) free.
+[2/5] Performing build step for 'bootloader'
+[1/1] cd /Users/joseto/esp/projects_tf/person_detection/build/bootloader/esp-idf/esptool_py && /Users/joseto/esp/idf-tools/python_env/idf5.3_py3.9_env/bin/python /Users/joseto/esp/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x1000 /Users/joseto/esp/projects_tf/person_detection/build/bootloader/bootloader.bin
+Bootloader binary size 0x6f50 bytes. 0xb0 bytes (1%) free.
+[3/5] No install step for 'bootloader'
+[4/5] Completed 'bootloader'
+[4/5] cd /Users/joseto/esp/esp-idf/components/esptool_py && /opt/homebrew/Cellar/cmake/3.29.0/bin/cmake -D IDF_PATH=/Users/joseto/esp/esp-idf -D "SERIAL_TOOL=/Users/joseto/esp/idf-tools/python_env/idf5.3_py3.9_env/bin/python;;/Users/joseto/esp/esp-idf/components/esptool_py/esptool/esptool.py;--chip;esp32" -D "SERIAL_TOOL_ARGS=--before=default_reset;--after=hard_reset;write_flash;@flash_args" -D WORKING_DIRECTORY=/Users/joseto/esp/projects_tf/person_detection/build -P /Users/joseto/esp/esp-idf/components/esptool_py/run_serial_tool.cmake
+esptool.py --chip esp32 -p /dev/cu.usbserial-1140 -b 460800 --before=default_reset --after=hard_reset write_flash --flash_mode dio --flash_freq 80m --flash_size 4MB 0x1000 bootloader/bootloader.bin 0x10000 person_detection.bin 0x8000 partition_table/partition-table.bin
+esptool.py v4.8.dev3
+Serial port /dev/cu.usbserial-1140
+Connecting....
+Chip is ESP32-D0WDQ6 (revision v1.1)
+Features: WiFi, BT, Dual Core, 240MHz, VRef calibration in efuse, Coding Scheme None
+Crystal is 40MHz
+MAC: 08:f9:e0:c6:ae:c4
+Uploading stub...
+Running stub...
+Stub running...
+Changing baud rate to 460800
+Changed.
+Configuring flash size...
+Flash will be erased from 0x00001000 to 0x00007fff...
+Flash will be erased from 0x00010000 to 0x00150fff...
+Flash will be erased from 0x00008000 to 0x00008fff...
+SHA digest in image updated
+Compressed 28496 bytes to 17354...
+Writing at 0x00001000... (50 %)
+Writing at 0x00007a49... (100 %)
+Wrote 28496 bytes (17354 compressed) at 0x00001000 in 0.7 seconds (effective 328.8 kbit/s)...
+Hash of data verified.
+Compressed 1310880 bytes to 965166...
+Writing at 0x00010000... (1 %)
+Writing at 0x0001d3fc... (3 %)
+Writing at 0x00022062... (5 %)
+Writing at 0x00026524... (6 %)
+Writing at 0x0002ab32... (8 %)
+Writing at 0x0002f18a... (10 %)
+Writing at 0x0003396a... (11 %)
+Writing at 0x000380e8... (13 %)
+Writing at 0x0003ca14... (15 %)
+Writing at 0x0004137e... (16 %)
+Writing at 0x00045d07... (18 %)
+Writing at 0x0004a66e... (20 %)
+Writing at 0x0004f04d... (22 %)
+Writing at 0x000539b6... (23 %)
+Writing at 0x000581d3... (25 %)
+Writing at 0x0005cb1e... (27 %)
+Writing at 0x0006155c... (28 %)
+Writing at 0x00065f30... (30 %)
+Writing at 0x0006a958... (32 %)
+Writing at 0x0006f209... (33 %)
+Writing at 0x00073b3a... (35 %)
+Writing at 0x000784fa... (37 %)
+Writing at 0x0007cd46... (38 %)
+Writing at 0x00081ef0... (40 %)
+Writing at 0x00087735... (42 %)
+Writing at 0x0008d321... (44 %)
+Writing at 0x00092e8c... (45 %)
+Writing at 0x00097e0c... (47 %)
+Writing at 0x0009d95e... (49 %)
+Writing at 0x000a32d6... (50 %)
+Writing at 0x000a87e8... (52 %)
+Writing at 0x000adb32... (54 %)
+Writing at 0x000b2c12... (55 %)
+Writing at 0x000b7f86... (57 %)
+Writing at 0x000bce2c... (59 %)
+Writing at 0x000c2466... (61 %)
+Writing at 0x000c788d... (62 %)
+Writing at 0x000ccc7d... (64 %)
+Writing at 0x000d2589... (66 %)
+Writing at 0x000d79be... (67 %)
+Writing at 0x000dd577... (69 %)
+Writing at 0x000e2a61... (71 %)
+Writing at 0x000e7bdc... (72 %)
+Writing at 0x000ed156... (74 %)
+Writing at 0x000f2af9... (76 %)
+Writing at 0x000f7f05... (77 %)
+Writing at 0x000fd394... (79 %)
+Writing at 0x001045bc... (81 %)
+Writing at 0x0010f0c1... (83 %)
+Writing at 0x00114a28... (84 %)
+Writing at 0x0011a15b... (86 %)
+Writing at 0x0011f28f... (88 %)
+Writing at 0x0012449d... (89 %)
+Writing at 0x0012a93b... (91 %)
+Writing at 0x00130bf2... (93 %)
+Writing at 0x00136af5... (94 %)
+Writing at 0x0013f948... (96 %)
+Writing at 0x00145134... (98 %)
+Writing at 0x0014a94c... (100 %)
+Wrote 1310880 bytes (965166 compressed) at 0x00010000 in 24.2 seconds (effective 433.6 kbit/s)...
+Hash of data verified.
+Compressed 3072 bytes to 105...
+Writing at 0x00008000... (100 %)
+Wrote 3072 bytes (105 compressed) at 0x00008000 in 0.0 seconds (effective 603.3 kbit/s)...
+Hash of data verified.
+
+Leaving...
+Hard resetting via RTS pin...

@@ -1,0 +1,147 @@
+ets Jun  8 2016 00:22:57
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:1
+load:0x3fff0030,len:7524
+load:0x40078000,len:16552
+load:0x40080400,len:4
+load:0x40080404,len:4316
+entry 0x4008065c
+[0;32mI (29) boot: ESP-IDF v5.3-dev-2672-g6b9c2fca79 2nd stage bootloader[0m
+[0;32mI (29) boot: compile time Jun 25 2024 16:32:35[0m
+[0;32mI (31) boot: Multicore bootloader[0m
+[0;32mI (35) boot: chip revision: v1.1[0m
+[0;32mI (39) qio_mode: Enabling default flash chip QIO[0m
+[0;32mI (44) boot.esp32: SPI Speed      : 80MHz[0m
+[0;32mI (49) boot.esp32: SPI Mode       : QIO[0m
+[0;32mI (53) boot.esp32: SPI Flash Size : 4MB[0m
+[0;32mI (58) boot: Enabling RNG early entropy source...[0m
+[0;32mI (63) boot: Partition Table:[0m
+[0;32mI (67) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (74) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (81) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (89) boot:  2 factory          factory app      00 00 00010000 00300000[0m
+[0;32mI (96) boot: End of partition table[0m
+[0;32mI (101) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=fae34h (1027636) map[0m
+[0;32mI (373) esp_image: segment 1: paddr=0010ae5c vaddr=3ffb0000 size=0336ch ( 13164) load[0m
+[0;32mI (377) esp_image: segment 2: paddr=0010e1d0 vaddr=40080000 size=01e48h (  7752) load[0m
+[0;32mI (381) esp_image: segment 3: paddr=00110020 vaddr=400d0020 size=312cch (201420) map[0m
+[0;32mI (438) esp_image: segment 4: paddr=001412f4 vaddr=40081e48 size=0eda4h ( 60836) load[0m
+[0;32mI (466) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (466) boot: Disabling RNG early entropy source...[0m
+[0;32mI (477) cpu_start: Multicore app[0m
+[0;32mI (477) quad_psram: This chip is ESP32-D0WD[0m
+[0;32mI (478) esp_psram: Found 8MB PSRAM device[0m
+[0;32mI (480) esp_psram: Speed: 80MHz[0m
+[0;32mI (483) esp_psram: PSRAM initialized, cache is in low/high (2-core) mode.[0m
+[0;33mW (491) esp_psram: Virtual address not enough for PSRAM, map as much as we can. 4MB is mapped[0m
+[0;32mI (964) esp_psram: SPI SRAM memory test OK[0m
+[0;32mI (971) cpu_start: Pro cpu start user code[0m
+[0;32mI (971) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (971) app_init: Application information:[0m
+[0;32mI (974) app_init: Project name:     person_detection[0m
+[0;32mI (980) app_init: App version:      1[0m
+[0;32mI (984) app_init: Compile time:     Jun 25 2024 16:32:30[0m
+[0;32mI (990) app_init: ELF file SHA256:  dd9cee2a0...[0m
+[0;32mI (996) app_init: ESP-IDF:          v5.3-dev-2672-g6b9c2fca79[0m
+[0;32mI (1002) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (1007) efuse_init: Max chip rev:     v3.99 [0m
+[0;32mI (1012) efuse_init: Chip rev:         v1.1[0m
+[0;32mI (1017) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (1024) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (1030) heap_init: At 3FFB4130 len 0002BED0 (175 KiB): DRAM[0m
+[0;32mI (1037) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (1043) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (1050) heap_init: At 40090BEC len 0000F414 (61 KiB): IRAM[0m
+[0;32mI (1056) esp_psram: Adding pool of 4096K of PSRAM memory to heap allocator[0m
+[0;32mI (1064) spi_flash: detected chip: generic[0m
+[0;32mI (1068) spi_flash: flash io: qio[0m
+[0;33mW (1072) i2c: This driver is an old driver, please migrate your application code to adapt `driver/i2c_master.h`[0m
+[0;32mI (1083) main_task: Started on CPU0[0m
+[0;32mI (1093) main_task: Calling app_main()[0m
+Moviendo servo al ángulo 90
+[0;32mI (1093) gpio: GPIO[4]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+Total heap size: 4509568
+Free heap size: 4484188
+Total PSRAM size: 8388608
+Free PSRAM size: 4191744
+Free heap size after allocation: 4084184
+Free PSRAM size after allocation: 3791740
+[0;32mI (1123) gpio: GPIO[25]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:2 [0m
+[0;32mI (1123) cam_hal: cam init ok[0m
+[0;32mI (1123) sccb: pin_sda 26 pin_scl 27[0m
+[0;32mI (1133) sccb: sccb_i2c_port=1[0m
+[0;32mI (1133) gpio: GPIO[32]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1173) camera: Detected camera at address=0x30[0m
+[0;32mI (1173) camera: Detected OV2640 camera[0m
+[0;32mI (1173) camera: Camera PID=0x26 VER=0x42 MIDL=0x7f MIDH=0xa2[0m
+[0;32mI (1243) esp32 ll_cam: node_size: 3072, nodes_per_line: 1, lines_per_node: 4, dma_half_buffer_min:  3072, dma_half_buffer: 12288,lines_per_half_buffer: 16, dma_buffer_size: 24576, image_size: 18432[0m
+[0;32mI (1253) cam_hal: buffer_size: 24576, half_buffer_size: 12288, node_buffer_size: 3072, node_cnt: 8, total_cnt: 1[0m
+[0;32mI (1263) cam_hal: Allocating 9216 Byte frame buffer in PSRAM[0m
+[0;32mI (1273) cam_hal: Allocating 9216 Byte frame buffer in PSRAM[0m
+[0;32mI (1273) cam_hal: cam config ok[0m
+[0;32mI (1283) ov2640: Set PLL: clk_2x: 0, clk_div: 3, pclk_auto: 1, pclk_div: 8[0m
+Camera Initialized
+
+Image Captured
+
+[0;31mE (6513) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[0;31mE (6513) task_wdt:  - IDLE0 (CPU 0)[0m
+[0;31mE (6513) task_wdt: Tasks currently running:[0m
+[0;31mE (6513) task_wdt: CPU 0: tf_main[0m
+[0;31mE (6513) task_wdt: CPU 1: IDLE1[0m
+[0;31mE (6513) task_wdt: Print CPU 0 (current core) backtrace[0m
+
+
+Backtrace: 0x400F093F:0x3FFB1110 0x400844F5:0x3FFB1140 0x400E4096:0x3FFB7350 0x400DD4F6:0x3FFB7420 0x400D9AF1:0x3FFB7960 0x400D97C6:0x3FFB7990 0x400D869E:0x3FFB79B0 0x400D8031:0x3FFB79D0
+
+
+Detected:
+
+basketball: 0.039062
+
+rugby: 0.031250
+
+soccer: 0.007812
+
+tabletennis: 0.453125
+
+tennis: 0.453125
+
+volleyball: 0.015625
+
+Max: tabletennis: 0.453125
+
+Ángulo fuera de rango
+Image Captured
+
+[0;31mE (22103) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[0;31mE (22103) task_wdt:  - IDLE0 (CPU 0)[0m
+[0;31mE (22103) task_wdt: Tasks currently running:[0m
+[0;31mE (22103) task_wdt: CPU 0: tf_main[0m
+[0;31mE (22103) task_wdt: CPU 1: IDLE1[0m
+[0;31mE (22103) task_wdt: Print CPU 0 (current core) backtrace[0m
+
+
+Backtrace: 0x400F093F:0x3FFB1110 0x400844F5:0x3FFB1140 0x400E4083:0x3FFB7350 0x400DD4F6:0x3FFB7420 0x400D9AF1:0x3FFB7960 0x400D97C6:0x3FFB7990 0x400D869E:0x3FFB79B0 0x400D8031:0x3FFB79D0
+
+
+Detected:
+
+basketball: 0.046875
+
+rugby: 0.035156
+
+soccer: 0.007812
+
+tabletennis: 0.398438
+
+tennis: 0.496094
+
+volleyball: 0.015625
+
+Max: tennis: 0.496094
+
+Ángulo fuera de rango
